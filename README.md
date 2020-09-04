@@ -1,4 +1,5 @@
 # NDP
 Nab detector pipeline
 
-This is a temporary feature branch to work on the flexible construction of the dead layer in the Si detector
+This is a temporary feature branch to work on the flexible construction of the dead layer in the Si detector for the GEANT4 simulation.
+The SSD simulation is unchanged.
