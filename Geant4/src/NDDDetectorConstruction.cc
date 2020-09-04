@@ -15,6 +15,8 @@
 #include "G4UserLimits.hh"
 #include "G4SystemOfUnits.hh"
 
+#include "G4RunManager.hh"
+
 NDDDetectorConstruction::NDDDetectorConstruction()
     : solidWorld(0),
       logicalWorld(0),
@@ -22,11 +24,12 @@ NDDDetectorConstruction::NDDDetectorConstruction()
       siThickness(2. * mm),
       siBackingThickness(3. * mm),
       siOuterRadius(7.5 * cm),
-      deadLayerThickness(100. * nm),
+      //deadLayerThickness(100. * nm),
       pixelRings(2),
       stepLimitMyl(0),
       stepLimitDead(0),
       stepLimitCar(0) {
+  deadLayerThickness    = 100.*nm;
   detMess = new NDDDetectorMessenger(this);
   detectorPosition = G4ThreeVector(0, 0, 10 * mm);
 }
@@ -426,3 +429,13 @@ void NDDDetectorConstruction::SetStepLimits() {
   /*logicalWorld->SetUserLimits(
       new G4UserLimits(1e-3 * m, 1e2 * m, 1e3 * s, 1e-3 * keV));*/
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void NDDDetectorConstruction::SetdeadLayerThickness(G4double value)
+{
+  deadLayerThickness = value;
+  G4RunManager::GetRunManager()->ReinitializeGeometry();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
