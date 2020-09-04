@@ -36,6 +36,8 @@
 #/NDD/geometry/addSourcePosition 0 -80 2160 mm
 /NDD/geometry/pixelRings 6
 
+/NDD/geometry/DeadLayerThickness 0.1 um
+
 ####################################################
 #                     PHYSICS                      #
 ####################################################
