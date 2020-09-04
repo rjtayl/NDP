@@ -31,6 +31,8 @@ class NDDDetectorConstruction : public G4VUserDetectorConstruction {
   inline void AddSourcePosition(G4ThreeVector v) { sourcePos.push_back(v); };
   inline void SetPixelRings(G4int r) { pixelRings = r; };
   inline void SetDetectorPosition(G4ThreeVector v) { detectorPosition = v;}
+ 
+  void SetdeadLayerThickness (G4double value);
 
  private:
   void BuildWorld();
