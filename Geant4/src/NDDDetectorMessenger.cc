@@ -5,6 +5,7 @@
 #include "G4UIcmdWithABool.hh"
 #include "G4UIcmdWith3VectorAndUnit.hh"
 #include "G4UIcmdWithAnInteger.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
 #include "globals.hh"
 
 NDDDetectorMessenger::NDDDetectorMessenger(NDDDetectorConstruction* myDet)
@@ -35,6 +36,14 @@ NDDDetectorMessenger::NDDDetectorMessenger(NDDDetectorConstruction* myDet)
   pixelRingsCmd->SetGuidance(
       "Set the number of pixel rings surrounding the central pixel");
   pixelRingsCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+        
+  DeadThicknessCmd =
+       new G4UIcmdWithADoubleAndUnit("/NDD/geometry/DeadLayerThickness",this);
+  DeadThicknessCmd->SetGuidance("Set the Silicon Dead Layer Thickness.");
+  DeadThicknessCmd->SetUnitCategory("Length");
+  DeadThicknessCmd->SetParameterName("choice",false);
+  DeadThicknessCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
 }
 
 NDDDetectorMessenger::~NDDDetectorMessenger() {
@@ -42,6 +51,8 @@ NDDDetectorMessenger::~NDDDetectorMessenger() {
   delete sourceIDCmd;
   delete sourcePosCmd;
   delete pixelRingsCmd;
+
+  delete DeadThicknessCmd;    
 }
 
 void NDDDetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
@@ -53,5 +64,7 @@ void NDDDetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue) 
         detector->SetPixelRings(pixelRingsCmd->GetNewIntValue(newValue));
     } else if (command == detPosCmd) {
         detector->SetDetectorPosition(detPosCmd->GetNew3VectorValue(newValue));
+    } else if (command == DeadThicknessCmd) {
+        detector->SetdeadLayerThickness(DeadThicknessCmd->GetNewDoubleValue(newValue));
     }
 }
